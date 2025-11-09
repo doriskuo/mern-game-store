@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --font-silkscreen: "Silkscreen", sans-serif;
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* 主題色 */
+  --theme-color-yellow: #fcd24f;
+  --theme-color-green: #75a62d;
+  --theme-color-brown: #734d1f;
+  --theme-color-gray: #ababab;
+  --theme-color-white: #f5f5f5;
+}
+
+html,
+body {
+  height: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.border-themeYellow {
+  border-color: var(--theme-color-yellow);
+}
+.bg-themeYellow {
+  background-color: var(--theme-color-yellow);
+  color: white;
+}
+
+/* navbar區塊 */
+.nav-border {
+  @apply stroke-5;
+  fill: var(--theme-color-yellow);
+  filter: drop-shadow(0px 0px 30px rgba(55, 54, 54, 0.25));
+}
+.nav-link {
+  @apply text-white text-5xl hover:border-b-5 hover:border-white pb-5;
+  transition: all 0.3s ease-in-out;
+}
+.sign-in,
+.sign-out {
+  @apply border-5 border-white border-dashed rounded-full px-8 py-3 text-white text-4xl hover:bg-white hidden sm:inline;
+  &:hover {
+    color: var(--theme-color-yellow);
+  }
+  transition: all 0.3s ease-in-out;
+}
+.nav-icon {
+  @apply text-white size-[100px] sm:hidden;
+}
+.mlauto {
+  margin-right: 50px;
+}
+
+/* gamecarousel區設定 */
+.carousel {
+  @apply w-screen h-[300px] md:h-[400px] lg:h-[450px] border-y-10 relative overflow-hidden flex;
+  border-color: var(--theme-color-yellow);
+}
+
+/* footer */
+.footer {
+  @apply w-full h-[160px] relative bottom-0 flex flex-col md:flex-row gap-5  md:gap-10 items-center justify-center;
+  background-color: var(--theme-color-yellow);
+}
+
+/* games區塊 */
+.gamecard {
+  @apply flex flex-col w-auto max-w-[85vw] sm:max-w-[75vw] lg:max-w-[70vw] 
+  h-auto gap-4 p-3 mx-auto mb-10 2xl:flex-row 
+  2xl:h-[500px] 2xl:max-w-[80vw] border-3 md:border-5 rounded-xl;
+  border-color: var(--theme-color-yellow);
+}
+
+/* signin區塊 */
+.signin {
+  @apply flex flex-col mx-auto relative mt-25 w-[70%] h-auto border-5 py-8 px-5;
+  border-color: var(--theme-color-yellow);
+}
+
+/* register區塊 */
+.register {
+  @apply flex mx-auto lg:mt-20  lg:w-[50%] h-auto border-5 py-8 px-8 justify-center;
+  border-color: var(--theme-color-yellow);
+}
+
+/* admin 區塊 */
+.game-nav {
+  @apply text-white hover:border-b-5 hover:border-white pb-3;
+  transition: all 0.3s ease-in-out;
+}
