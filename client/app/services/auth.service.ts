@@ -3,7 +3,11 @@ const API_URL = `${import.meta.env.VITE_API_BASE_URL}/auth`;
 
 class AuthService {
   login(email: string, password: string) {
-    return axios.post(`${API_URL}/login`, { email, password });
+    return axios.post(
+      `${API_URL}/login`,
+      { email, password },
+      { withCredentials: true }
+    );
   }
   logout() {
     localStorage.removeItem("user");

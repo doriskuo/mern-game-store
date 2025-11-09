@@ -16,7 +16,7 @@ const Homepage = () => {
   return (
     <div className="relative min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-1 pt-[120px] sm:pt-[160px] md:pt-[190px] lg:pt-[250px]">
+      <main className="flex-1 pt-[120px] sm:pt-[160px] md:pt-[170px] lg:pt-[230px]">
         {" "}
         {/* ✅ 主要內容往下推 */}
         <Outlet />

@@ -29,18 +29,30 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+// ====== CORS ======
 const allowedOrigins = [
   "http://localhost:5173",
+  "http://localhost:3000",
   "https://mern-game-store.vercel.app",
+  "https://mern-game-store-tl40.onrender.com",
 ];
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true); // Postman or no origin
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error(`Not allowed by CORS: ${origin}`));
+    },
+    credentials: true,
+  })
+);
 
 app.use(passport.initialize());
 
 // ====== Routes ======
 app.use("/auth", authRoute);
 app.use("/api/games", gameRoute);
-//應該被JWT保護，如果req header 沒有jwt token就被視為沒有通過驗證
 app.use(
   "/api/admin/games",
   passport.authenticate("jwt", { session: false }),

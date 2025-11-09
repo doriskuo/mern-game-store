@@ -67,15 +67,16 @@ const ShoppingCard = () => {
   };
 
   return (
-    <div className="w-[90vw] mx-auto grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mt-3">
+    <div className="w-[90vw] mx-auto grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 mt-3">
       {games.map((game, i) => (
         <div
           key={i}
-          className="flex flex-col mx-auto mt-5 border-themeYellow border-4 sm:border-5 
-          w-[85vw] sm:w-[45vw] xl:w-[25vw] rounded-[25px] overflow-hidden 
-          hover:shadow-xl hover:scale-[1.02] transition-transform duration-300"
+          className="flex flex-col mx-auto mt-5 border-themeYellow border-3 sm:border-4 
+          w-[85vw] sm:w-[42vw] xl:w-[25vw] rounded-[25px] overflow-hidden 
+          hover:shadow-xl hover:scale-[1.02] transition-transform duration-300 
+          min-h-[340px] sm:min-h-[360px] xl:min-h-[400px]"
         >
-          <div className="w-full h-[200px] sm:h-[250px] md:h-[280px] overflow-hidden">
+          <div className="w-full aspect-[5/4] sm:aspect-[4/3] lg:aspect-[16/9] overflow-hidden">
             <img
               className="object-cover w-full h-full"
               src={game.mainImages?.[0]}
@@ -83,19 +84,19 @@ const ShoppingCard = () => {
             />
           </div>
 
-          <div className="flex flex-col p-3 justify-center items-center">
-            <div className="flex gap-2 flex-wrap justify-center mb-3">
+          <div className="flex flex-col p-2 sm:p-3 justify-center items-center">
+            <div className="flex gap-2 flex-wrap justify-center mb-1 sm:mb-2">
               {game.tags?.map((tag: string, idx: number) => (
                 <span
                   key={idx}
-                  className="rounded-[25px] bg-themeYellow py-1 px-3 text-sm sm:text-base"
+                  className="rounded-[25px] bg-themeYellow py-[2px] px-2 text-[10px] sm:text-xs md:text-sm"
                 >
                   {tag}
                 </span>
               ))}
             </div>
 
-            <div className="flex flex-col gap-2 text-center text-base sm:text-lg lg:text-xl mb-3">
+            <div className="flex flex-col gap-2 text-center text-xs sm:text-sm lg:text-base mb-3">
               <div>
                 原價：<span className="line-through">{game.price}</span>
               </div>
@@ -109,17 +110,17 @@ const ShoppingCard = () => {
               </div>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-2">
+            <div className="flex flex-wrap justify-center gap-1 sm:gap-2">
               <button
                 onClick={() => handleAdd(game)}
-                className="border-themeYellow border-2 rounded-[25px] cursor-pointer text-base sm:text-xl px-4 sm:px-5 py-1 sm:py-2 hover:bg-themeYellow hover:text-white transition-colors"
+                className="border-themeYellow border-2 rounded-[25px] cursor-pointer text-xs sm:text-sm lg:text-base px-4 sm:px-5 py-1 sm:py-1.5 hover:bg-themeYellow hover:text-white transition-colors"
               >
                 加入購物車 <ShoppingCart className="inline ml-1 sm:ml-2" />
               </button>
 
               <button
                 onClick={handleBuy}
-                className="border-themeYellow border-2 rounded-[25px] cursor-pointer text-base sm:text-xl px-4 sm:px-5 py-1 sm:py-2 hover:bg-themeYellow hover:text-white transition-colors"
+                className="border-themeYellow border-2 rounded-[25px] cursor-pointer text-xs sm:text-sm lg:text-base px-4 sm:px-5 py-1 sm:py-1.5 hover:bg-themeYellow hover:text-white transition-colors"
               >
                 直接購買 <Handbag className="inline ml-1 sm:ml-2" />
               </button>

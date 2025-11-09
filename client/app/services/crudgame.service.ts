@@ -30,6 +30,7 @@ class CrudGameService {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        withCredentials: true,
       }
     );
   }
@@ -40,6 +41,7 @@ class CrudGameService {
 
     return axios.patch(`${API_URL}/${originalName}`, payload, {
       headers: { Authorization: `Bearer ${token}` },
+      withCredentials: true,
     });
   }
 
@@ -48,6 +50,7 @@ class CrudGameService {
     const token = stored ? JSON.parse(stored).token : "";
     return axios.delete(`${API_URL}/${name}`, {
       headers: { Authorization: `Bearer ${token}` },
+      withCredentials: true,
     });
   }
 }

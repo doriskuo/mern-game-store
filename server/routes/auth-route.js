@@ -5,6 +5,8 @@ const loginValidation = require("../validation").loginValidation;
 const User = require("../models").user;
 const jwt = require("jsonwebtoken");
 
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
+
 // === 註冊 ===
 router.post("/register", async (req, res) => {
   //驗證輸入
@@ -75,7 +77,7 @@ router.get(
       })
     );
 
-    res.redirect(`http://localhost:5173/google/redirect?data=${userInfo}`);
+    res.redirect(`${CLIENT_URL}/google/redirect?data=${userInfo}`);
   }
 );
 

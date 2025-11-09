@@ -2,15 +2,15 @@ const router = require("express").Router();
 const Game = require("../models").game;
 const gameValidation = require("../validation").gameValidation;
 
+// 僅限 admin 操作
 router.use((req, res, next) => {
-  // 只允許 role === "admin"
   if (!req.user || req.user.role !== "admin") {
     return res.status(403).send("只有管理者能進行此操作。");
   }
   next();
 });
 
-// 創建遊戲
+// === 創建遊戲 ===
 router.post("/", async (req, res) => {
   try {
     const {
@@ -23,6 +23,8 @@ router.post("/", async (req, res) => {
       price,
       discountPrice,
     } = req.body;
+
+    // ✅ 寫入時只存相對路徑
     const generateMainImgPaths = (base) =>
       Array.from(
         { length: 5 },
@@ -35,11 +37,12 @@ router.post("/", async (req, res) => {
         (_, i) => `/gameCardImages/${base}${i + 1}S.jpg`
       );
 
-    const generatedMainImages = baseMain ? generateMainImgPaths(baseMain) : []; // 若沒有提供 base，可決定要回傳錯誤或留空
+    const generatedMainImages = baseMain ? generateMainImgPaths(baseMain) : [];
     const generatedSmallImages = baseSmall
       ? generateSmallImgPaths(baseSmall)
       : [];
-    // 確保 tags 是陣列（若前端傳字串也可處理）
+
+    // 處理標籤輸入
     const tagsArray = Array.isArray(tags)
       ? tags
       : typeof tags === "string"
@@ -48,7 +51,8 @@ router.post("/", async (req, res) => {
           .map((t) => t.trim())
           .filter(Boolean)
       : [];
-    // 建一個要驗證的物件（用來對照 Joi schema）
+
+    // 驗證
     const payloadToValidate = {
       name,
       title,
@@ -59,11 +63,11 @@ router.post("/", async (req, res) => {
       price,
       discountPrice,
     };
-    // 使用你原本的 gameValidation 去驗證（需要 schema 接受陣列形式）
+
     let { error } = gameValidation(payloadToValidate);
     if (error) return res.status(400).send(error.details[0].message);
 
-    // 建立並儲存
+    // 寫入 DB
     const newGame = new Game({
       ...payloadToValidate,
       admin: req.user._id,
@@ -77,7 +81,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-//更改遊戲
+// === 更新遊戲 ===
 router.patch("/:name", async (req, res) => {
   try {
     const gameName = req.params.name;
@@ -87,24 +91,22 @@ router.patch("/:name", async (req, res) => {
       return res.status(404).send("找不到此遊戲，無法更新遊戲內容");
     }
 
-    // 如果有提供 base，就重建圖片路徑
     const { mainImages, images, ...updatePayload } = req.body;
-    if (req.body.name) {
-      updatePayload.name = req.body.name;
-    }
 
+    if (req.body.name) updatePayload.name = req.body.name;
+
+    // ✅ 更新時也僅存相對路徑
     if (mainImages) {
       updatePayload.mainImages = Array.from(
         { length: 5 },
-        (_, i) =>
-          `http://localhost:3000/gameCardImages/${mainImages}${i + 1}L.jpg`
+        (_, i) => `/gameCardImages/${mainImages}${i + 1}L.jpg`
       );
     }
 
     if (images) {
       updatePayload.images = Array.from(
         { length: 5 },
-        (_, i) => `http://localhost:3000/gameCardImages/${images}${i + 1}S.jpg`
+        (_, i) => `/gameCardImages/${images}${i + 1}S.jpg`
       );
     }
 
@@ -116,11 +118,12 @@ router.patch("/:name", async (req, res) => {
 
     return res.send({ message: "遊戲已成功更新", updatedGame });
   } catch (e) {
-    return res.status(500).send(e);
+    console.error(e);
+    return res.status(500).send("無法更新遊戲。");
   }
 });
 
-//刪除遊戲
+// === 刪除遊戲 ===
 router.delete("/:name", async (req, res) => {
   let { name } = req.params;
   try {
@@ -128,12 +131,12 @@ router.delete("/:name", async (req, res) => {
     if (!foundGame) {
       return res.status(400).send("找不到遊戲，無法刪除遊戲");
     }
-    if (foundGame) {
-      await Game.deleteOne({ name }).exec();
-      return res.send("遊戲已被刪除");
-    }
+
+    await Game.deleteOne({ name }).exec();
+    return res.send("遊戲已被刪除");
   } catch (e) {
-    return res.status(500).send(e);
+    console.error(e);
+    return res.status(500).send("刪除失敗");
   }
 });
 

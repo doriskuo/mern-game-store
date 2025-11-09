@@ -2,79 +2,81 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { images } from "../data/imagesData";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const GameCarousel = () => {
   const trackRef = useRef(null);
   const carouselRef = useRef(null);
+  const IMG_BASE_URL = import.meta.env.VITE_IMG_BASE_URL;
 
   useEffect(() => {
     if (!images.length || !trackRef.current) return;
     const track = trackRef.current;
     const distance = (trackRef.current as HTMLDivElement).scrollWidth / 2;
 
-    // 基本無限循環動畫
+    // 無限循環動畫
     const tl = gsap.to(track, {
       x: -distance,
       duration: 50,
       repeat: -1,
       ease: "linear",
       modifiers: {
-        // 每次位移超過 distance，就取餘數，形成無縫循環
         x: (x) => `${parseFloat(x) % distance}px`,
       },
     });
 
-    // 滾動觸發 → 加速 or 反向
+    // 滾動觸發控制速度
     const st1 = ScrollTrigger.create({
       trigger: track,
       start: "top bottom",
       end: "bottom top",
       scrub: true,
       onUpdate: (self) => {
-        const velocity = self.getVelocity(); // 取得滾動速度
+        const velocity = self.getVelocity();
         if (velocity > 0) {
-          tl.timeScale(2); // 向下滾動 → 加速
+          tl.timeScale(2);
         } else if (velocity < 0) {
-          tl.timeScale(-2); // 向上滾動 → 反向
+          tl.timeScale(-2);
         } else {
-          tl.timeScale(1); // 停止滾動 → 回復正常速度
+          tl.timeScale(1);
         }
       },
     });
 
-    // 滾動觸發 →
+    // 滾動固定 Carousel
     const st2 = ScrollTrigger.create({
       trigger: carouselRef.current,
       start:
         window.innerWidth < 640
           ? "top 200px"
           : window.innerWidth < 1024
-            ? "top 280px"
-            : "top 330px",
+            ? "top 200px"
+            : "top 260px",
       endTrigger: "footer",
-      end: "top+=150 bottom",
+      end: "top+=100 bottom",
       pin: true,
       pinSpacing: false,
       onLeave: () => {
         gsap.to(carouselRef.current, {
-          height: "70%",
+          height: "80%",
           duration: 1,
         });
       },
     });
 
     return () => {
-      tl.kill(); // 移除無限輪播動畫
-      st1.kill(); // 移除第一個 ScrollTrigger
-      st2.kill(); // 移除第二個 ScrollTrigger
+      tl.kill();
+      st1.kill();
+      st2.kill();
     };
   }, []);
 
   return (
     <div className="carousel" ref={carouselRef}>
+      {/* ✅ 背景圖會自動根據環境變數切換 */}
       <img
-        src="http://localhost:3000/games/bgimage.png"
+        src={`${IMG_BASE_URL}/games/bgimage.png`}
         alt="bgimage"
         className="w-full"
       />
@@ -85,7 +87,7 @@ const GameCarousel = () => {
               key={i}
               src={src}
               alt={`game-${i}`}
-              className="w-[252px] h-[150px]  md:w-[336px] md:h-[200px] lg:w-[420px] lg:h-[250px] object-cover"
+              className="w-[200px] h-[120px] md:w-[270px] md:h-[160px] lg:w-[336px] lg:h-[200px] object-cover"
             />
           ))}
           {images.map((src, i) => (
@@ -93,7 +95,7 @@ const GameCarousel = () => {
               key={`clone-${i}`}
               src={src}
               alt={`game-clone-${i}`}
-              className="w-[252px] h-[150px]  md:w-[336px] md:h-[200px] lg:w-[420px] lg:h-[250px] object-cover"
+              className="w-[200px] h-[120px] md:w-[270px] md:h-[160px] lg:w-[336px] lg:h-[200px] object-cover"
             />
           ))}
         </div>

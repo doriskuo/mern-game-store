@@ -75,16 +75,16 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 w-full flex justify-center z-50 bg-white/10 backdrop-blur-md">
       <svg
         viewBox="0 0 1800 400"
-        className="w-[90vw] h-[clamp(110px,20vw,250px)]"
+        className="w-[85vw] h-[clamp(120px,15vw,200px)]"
         preserveAspectRatio="xMidYMid meet"
       >
         <polyline ref={polyRef} points={startPoints} className="nav-border" />
-        <foreignObject x="120" y="120" width="90%" height="80%">
+        <foreignObject x="220" y="130" width="75%" height="68%">
           <div className="flex flex-wrap justify-between items-center">
             {/* LOGO */}
             <Link to="/">
               <img
-                className="w-[150px] sm:w-[200px]"
+                className="w-[120px] sm:w-[160px]"
                 src="/Logo.png"
                 alt="Logo"
               />

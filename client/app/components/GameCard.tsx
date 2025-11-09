@@ -64,15 +64,15 @@ const GameCard = () => {
   return (
     <>
       {/* 🔍 搜尋欄 */}
-      <div className="flex gap-3 mx-auto justify-center w-[80vw] md:[70vw] lg:w-[60vw] border-3 md:border-5 border-[var(--theme-color-yellow)] rounded-[25px] mt-2 mb-5 p-1 md:p-2">
+      <div className="flex gap-3 mx-auto justify-center w-[80vw] md:w-[70vw] lg:w-[60vw] border-3 md:border-5 border-[var(--theme-color-yellow)] rounded-[25px] mt-2 mb-5 p-1 md:p-2">
         <input
-          className="flex-8 rounded-[25px]"
+          className="flex-8 rounded-[25px] focus:outline-none placeholder:text-gray-400 px-2"
           type="text"
           onChange={(e) => setName(e.target.value)}
           placeholder="輸入遊戲名稱搜尋"
         />
         <button
-          className="flex-2 cursor-pointer text-sm sm:text-xl lg:text-2xl"
+          className="flex-2 cursor-pointer text-sm text-[var(--theme-color-yellow)] sm:text-xl lg:text-2xl"
           onClick={handleSearch}
         >
           搜尋
@@ -86,9 +86,9 @@ const GameCard = () => {
 
         return (
           <div className="gamecard" key={story._id ?? i}>
-            <div className="flex flex-col md:flex-row gap-4 2xl:flex-[6]">
+            <div className="flex flex-col md:flex-row gap-4 xl:flex-[6]">
               {/* 大圖 */}
-              <div className="flex-[5] overflow-hidden border-themeYellow border-3 md:border-5">
+              <div className="flex-[5] overflow-hidden border-themeYellow border-[3px] md:border-[4px] lg:border-[5px]">
                 <img
                   className="w-full h-full object-cover"
                   src={bigImg}
@@ -102,7 +102,7 @@ const GameCard = () => {
                 {thumbs.map((src: string, j: number) => (
                   <div
                     key={j}
-                    className="aspect-[5/3] overflow-hidden border-themeYellow border-3 md:border-5"
+                    className="aspect-[5/3] overflow-hidden border-themeYellow border-[3px] md:border-[4px] lg:border-[5px]"
                   >
                     <img
                       className={`w-full h-full object-cover ${
@@ -121,7 +121,7 @@ const GameCard = () => {
             </div>
 
             {/* 文字區 */}
-            <div className="flex flex-col justify-center 2xl:flex-[4] p-4 border-themeYellow border-3 md:border-5">
+            <div className="flex flex-col justify-center xl:flex-[4] p-4 border-themeYellow border-3 md:border-5">
               <h1 className="text-xl sm:text-3xl text-center mb-2 sm:mb-4">
                 {story.name}
               </h1>

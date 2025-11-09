@@ -38,41 +38,41 @@ body {
   filter: drop-shadow(0px 0px 30px rgba(55, 54, 54, 0.25));
 }
 .nav-link {
-  @apply text-white text-5xl hover:border-b-5 hover:border-white pb-5;
+  @apply text-white text-4xl hover:border-b-5 hover:border-white pb-5;
   transition: all 0.3s ease-in-out;
 }
 .sign-in,
 .sign-out {
-  @apply border-5 border-white border-dashed rounded-full px-8 py-3 text-white text-4xl hover:bg-white hidden sm:inline;
+  @apply border-5 border-white border-dashed rounded-full px-6 py-3 text-white text-4xl hover:bg-white hidden sm:inline;
   &:hover {
     color: var(--theme-color-yellow);
   }
   transition: all 0.3s ease-in-out;
 }
 .nav-icon {
-  @apply text-white size-[100px] sm:hidden;
+  @apply text-white size-[80px] sm:hidden;
 }
 .mlauto {
-  margin-right: 50px;
+  margin-right: 40px;
 }
 
 /* gamecarousel區設定 */
 .carousel {
-  @apply w-screen h-[300px] md:h-[400px] lg:h-[450px] border-y-10 relative overflow-hidden flex;
+  @apply w-screen h-[300px] md:h-[320px] lg:h-[360px] border-y-10 relative overflow-hidden flex;
   border-color: var(--theme-color-yellow);
 }
 
 /* footer */
 .footer {
-  @apply w-full h-[160px] relative bottom-0 flex flex-col md:flex-row gap-5  md:gap-10 items-center justify-center;
+  @apply w-full h-[120px] relative bottom-0 flex flex-col md:flex-row gap-5  md:gap-10 items-center justify-center;
   background-color: var(--theme-color-yellow);
 }
 
 /* games區塊 */
 .gamecard {
-  @apply flex flex-col w-auto max-w-[85vw] sm:max-w-[75vw] lg:max-w-[70vw] 
-  h-auto gap-4 p-3 mx-auto mb-10 2xl:flex-row 
-  2xl:h-[500px] 2xl:max-w-[80vw] border-3 md:border-5 rounded-xl;
+  @apply flex flex-col w-auto max-w-[80vw] sm:max-w-[75vw] xl:max-w-[80vw] 
+  h-auto gap-4 p-3 mx-auto mb-10 xl:flex-row 
+  xl:h-[450px] border-[3px] md:border-[4px] lg:border-[5px] rounded-xl;
   border-color: var(--theme-color-yellow);
 }
 
