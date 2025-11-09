@@ -33,6 +33,7 @@ app.use(express.static("public"));
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
+  "https://mern-game-store-git-main-doriskuos-projects.vercel.app",
   "https://mern-game-store.vercel.app",
   "https://mern-game-store-tl40.onrender.com",
 ];
