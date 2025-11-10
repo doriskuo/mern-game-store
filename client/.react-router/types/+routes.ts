@@ -40,6 +40,9 @@ type Pages = {
   "/admin/CreateGame": {
     params: {};
   };
+  "/admin/SearchGame": {
+    params: {};
+  };
   "/admin/UpdateGame": {
     params: {};
   };
@@ -51,7 +54,7 @@ type Pages = {
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/" | "/Games" | "/Shopping" | "/Register" | "/Signin" | "/google/redirect" | "/Account" | "/Checkout" | "/OrderComplete" | "/admin/CreateGame" | "/admin/UpdateGame" | "/admin/DeleteGame";
+    page: "/" | "/Games" | "/Shopping" | "/Register" | "/Signin" | "/google/redirect" | "/Account" | "/Checkout" | "/OrderComplete" | "/admin/CreateGame" | "/admin/SearchGame" | "/admin/UpdateGame" | "/admin/DeleteGame";
   };
   "routes/Homepage.tsx": {
     id: "routes/Homepage";
@@ -99,11 +102,15 @@ type RouteFiles = {
   };
   "routes/admin/AdminLayout.tsx": {
     id: "routes/admin/AdminLayout";
-    page: "/admin/CreateGame" | "/admin/UpdateGame" | "/admin/DeleteGame";
+    page: "/admin/CreateGame" | "/admin/SearchGame" | "/admin/UpdateGame" | "/admin/DeleteGame";
   };
   "routes/admin/CreateGame.tsx": {
     id: "routes/admin/CreateGame";
     page: "/admin/CreateGame";
+  };
+  "routes/admin/SearchGame.tsx": {
+    id: "routes/admin/SearchGame";
+    page: "/admin/SearchGame";
   };
   "routes/admin/UpdateGame.tsx": {
     id: "routes/admin/UpdateGame";

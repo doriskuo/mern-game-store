@@ -21,6 +21,7 @@ export default [
   ]),
   layout("routes/admin/AdminLayout.tsx", [
     route("/admin/CreateGame", "routes/admin/CreateGame.tsx"),
+    route("/admin/SearchGame", "routes/admin/SearchGame.tsx"),
     route("/admin/UpdateGame", "routes/admin/UpdateGame.tsx"),
     route("/admin/DeleteGame", "routes/admin/DeleteGame.tsx"),
   ]),

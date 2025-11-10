@@ -53,6 +53,16 @@ class CrudGameService {
       withCredentials: true,
     });
   }
+
+  searchGame(params: { name?: string; id?: string; admin?: string }) {
+    const stored = localStorage.getItem("user");
+    const token = stored ? JSON.parse(stored).token : "";
+    return axios.get(`${API_URL}/search`, {
+      headers: { Authorization: `Bearer ${token}` },
+      withCredentials: true,
+      params,
+    });
+  }
 }
 
 export default new CrudGameService();

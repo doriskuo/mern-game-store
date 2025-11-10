@@ -1,5 +1,10 @@
 import { NavLink } from "react-router";
-import { SquarePlus, ArrowUpToLine, Trash2 } from "lucide-react";
+import {
+  SquarePlus,
+  ArrowDownToLine,
+  ArrowUpToLine,
+  Trash2,
+} from "lucide-react";
 
 const GameNav = () => {
   return (
@@ -37,6 +42,20 @@ const GameNav = () => {
         >
           <SquarePlus className="size-6 sm:hidden" />
           <span className="hidden sm:inline">Add Game</span>
+        </NavLink>
+
+        <NavLink
+          to="/admin/SearchGame"
+          className={({ isActive }) =>
+            `game-nav flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 border-b-4 ${
+              isActive
+                ? "border-white"
+                : "border-transparent hover:border-white transition"
+            }`
+          }
+        >
+          <ArrowDownToLine className="size-6 sm:hidden" />
+          <span className="hidden sm:inline">Search Game</span>
         </NavLink>
 
         <NavLink

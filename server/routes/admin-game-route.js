@@ -140,4 +140,68 @@ router.delete("/:name", async (req, res) => {
   }
 });
 
+// === 查詢遊戲 ===
+// 支援：name 模糊搜尋、id 精準搜尋、admin 名稱/信箱搜尋、無輸入→全抓
+router.get("/search", async (req, res) => {
+  try {
+    const { name, id, admin } = req.query;
+
+    // 建立查詢條件
+    let query = {};
+    if (id) query._id = id; // 用 _id 精準搜尋
+    if (name) query.name = { $regex: name, $options: "i" }; // 模糊比對遊戲名稱
+
+    // 先抓出符合條件的遊戲並 populate 建立者資訊
+    let games = await Game.find(query).populate("admin", "username email");
+
+    // 若指定 admin 名稱或信箱，再篩選
+    if (admin) {
+      games = games.filter(
+        (g) =>
+          g.admin?.username?.toLowerCase().includes(admin.toLowerCase()) ||
+          g.admin?.email?.toLowerCase().includes(admin.toLowerCase())
+      );
+    }
+
+    // 沒有輸入任何條件 → 抓出所有遊戲
+    if (!name && !id && !admin) {
+      games = await Game.find().populate("admin", "username email");
+    }
+
+    if (!games.length) {
+      return res.status(404).send("查無符合條件的遊戲");
+    }
+
+    // 按建立時間新到舊排序
+    games.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    // 回傳完整資料（含管理欄位資訊）
+    return res.send(
+      games.map((g) => ({
+        _id: g._id,
+        name: g.name,
+        title: g.title,
+        article: g.article,
+        tags: g.tags,
+        mainImages: g.mainImages,
+        status: g.status,
+        price: g.price,
+        discountPrice: g.discountPrice,
+        discountPercentage: g.discountPercentage,
+        admin: g.admin
+          ? {
+              username: g.admin.username || "未知",
+              email: g.admin.email || "無",
+            }
+          : null,
+        createdAt: g.createdAt,
+        updatedAt: g.updatedAt,
+      }))
+    );
+  } catch (e) {
+    console.error(e);
+    return res.status(500).send("搜尋失敗");
+  }
+});
+
 module.exports = router;
