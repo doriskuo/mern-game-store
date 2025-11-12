@@ -61,7 +61,7 @@ router.get("/shop", async (req, res) => {
     ).exec();
 
     const formatted = games.map((g) => ({
-      ...g._doc,
+      ...g.toObject({ virtuals: true }),
       mainImages: toFullURL(g.mainImages),
     }));
 
