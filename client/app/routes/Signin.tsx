@@ -40,8 +40,13 @@ const Signin = () => {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    window.location.href = "http://localhost:3000/auth/google";
+  const handleGoogleLogin = () => {
+    const serverURL =
+      import.meta.env.MODE === "development"
+        ? "http://localhost:3000"
+        : "https://mern-game-store-tl40.onrender.com";
+
+    window.location.href = `${serverURL}/auth/google`;
   };
 
   return (
