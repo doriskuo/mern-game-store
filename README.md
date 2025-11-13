@@ -74,13 +74,15 @@ npm start
 
 ## 📂 專案結構 ｜ Project Structure
 
+```bash
 mern-game-store/
-│── client/ # 前端 React (Vite + Tailwind)
-│── server/ # 後端 Express + MongoDB
-│── .env # 環境變數設定
+│── client/            # 前端 React (Vite + Tailwind)
+│── server/            # 後端 Express + MongoDB
+│── .env               # 環境變數設定
 │── package.json
 │── README.md
-│── Dockerfile (optional)
+│── Dockerfile         # optional
+```
 
 ---
 
