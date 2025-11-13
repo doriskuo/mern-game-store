@@ -74,7 +74,6 @@ npm start
 
 ## 📂 專案結構 ｜ Project Structure
 
-\```
 mern-game-store/
 │── client/ # 前端 React (Vite + Tailwind)
 │── server/ # 後端 Express + MongoDB
@@ -82,7 +81,6 @@ mern-game-store/
 │── package.json
 │── README.md
 │── Dockerfile (optional)
-\```
 
 ---
 
@@ -124,18 +122,15 @@ mern-game-store/
 
 請在 `server/.env` 內設定以下內容：
 
-\```
 MONGO_URI=你的 MongoDB 連線字串
 JWT_SECRET=你的 JWT 密鑰
 GOOGLE_CLIENT_ID=你的 Google OAuth ID
 GOOGLE_CLIENT_SECRET=你的 Google OAuth Secret
-\```
 
 前端使用：
-\```
+
 VITE_API_BASE_URL=你的後端 URL
 VITE_IMG_BASE_URL=圖片伺服 URL
-\```
 
 ---
 
